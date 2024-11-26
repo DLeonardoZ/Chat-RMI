@@ -33,23 +33,7 @@ public class UIChat extends JPanel {
         add(txtMensaje);
 
         txtMensaje.addActionListener(e -> {
-            //String mensaje = txtMensaje.getText();
-            //String user = UIMenu.getUser();
-
-            //new HiloEnviarMensaje(user, mensaje).start();
-            txtMensaje.setText("");
+            // Funcion desactivada
         });
-    }
-
-    public static void activarChat() {
-        txtMensaje.setEnabled(true);
-    }
-
-    public static void desactivarChat() {
-        txtMensaje.setEnabled(false);
-    }
-
-    public static void nuevoMensaje(String user, String mensaje) {
-        txtChat.append(user + ": " + mensaje + "\n");
     }
 }

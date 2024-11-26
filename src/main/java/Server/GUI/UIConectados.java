@@ -13,7 +13,6 @@ public class UIConectados extends JPanel {
 
     static DefaultTableModel model = new DefaultTableModel(new Object[]{"Usuarios"}, 0);
     DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
-    String ip;
 
     public UIConectados() {
         setSize(200, 600);
@@ -54,12 +53,12 @@ public class UIConectados extends JPanel {
         return usuarios;
     }
 
-    public static void updateUsuarios(List<String> usuarios) {
+    /*public static void updateUsuarios(List<String> usuarios) {
         model.setRowCount(0);
         for (String usuario : usuarios) {
             model.addRow(new Object[]{usuario});
         }
-    }
+    }*/
 
     public static void clearTabla() {
         model.setRowCount(0);

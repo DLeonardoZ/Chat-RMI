@@ -8,7 +8,7 @@ import java.awt.Color;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-// Este hilo se encarga de levantar la comunicación estable con el servidor RMI.
+// Este hilo se encarga de levantar la comunicación con el cliente RMI.
 public class HiloServidor extends Thread {
 
     @Override
