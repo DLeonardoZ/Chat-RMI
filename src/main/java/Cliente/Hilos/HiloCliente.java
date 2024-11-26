@@ -1,0 +1,75 @@
+package Cliente.Hilos;
+
+import Cliente.GUI.UIChat;
+import Cliente.Logica.ClaseCliente;
+import Interfaces.InterfazCliente;
+import Cliente.GUI.UIMenu;
+import Server.GUI.UIConectados;
+import Interfaces.InterfazRemota;
+import Server.GUI.UIIConsole;
+
+import java.awt.Color;
+import java.net.InetAddress;
+import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
+public class HiloCliente extends Thread {
+
+    @Override
+    public void run() {
+        try {
+            System.out.println("Cliente RMI: Iniciando...");
+            UIMenu.setTextEstado("Estableciendo conexión", Color.ORANGE);
+            String url = "//" + java.net.InetAddress.getLocalHost().getHostAddress() + ":1234/ChatRMI";
+            InterfazCliente objetoRemoto = new ClaseCliente();
+            java.rmi.Naming.rebind(url, objetoRemoto);
+            System.out.println("Cliente RMI: OK");
+            UIMenu.setTextEstado("Conectado", Color.GREEN);
+            //UIMenu.btnDesconectar();
+            UIChat.activarChat();
+
+            String serverAddress = UIMenu.getDireccionUI();
+            String localAddress = InetAddress.getLocalHost().getHostAddress();
+            //Registra la conexion en el servidor
+            InterfazRemota claseRemota = (InterfazRemota) Naming.lookup("//" +
+                    serverAddress + ":1234/ChatRMI");
+            claseRemota.addUsuario(UIMenu.getUsuarioUI(), localAddress);
+
+
+        } catch (Exception ex) {
+            UIMenu.resetUIError();
+            UIMenu.setTextEstado(ex.getMessage(), Color.RED);
+            System.out.println("(HiloCliente.java) Error: " + ex.getMessage());
+        }
+    }
+
+    public static void desconectarse() {
+        try {
+
+            String serverAddress = UIMenu.getDireccionUI();
+            String url = "//" + serverAddress + ":1234/ChatRMI";
+            InterfazRemota objetoRemoto = (InterfazRemota) Naming.lookup(url);
+            UIMenu.setTextEstado("Cerrando...", Color.ORANGE);
+            String ip = InetAddress.getLocalHost().getHostAddress();
+
+            // Ejecuta Metodos de InterfazRemota
+            //objetoRemoto.removeUsuario(getUser(), ip); // Elimina usuario de la lista
+            UIConectados.clearTabla();
+            UIMenu.setTextEstado("Desconectado", Color.RED);
+        } catch (Exception ex) {
+            UIMenu.setTextEstado("Error", Color.RED);
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public static void abrirPuerto() {
+        try {
+            Registry registry = LocateRegistry.createRegistry(1234);
+            System.out.println(registry);
+        } catch (Exception ex) {
+            UIIConsole.addTextConsole("\nError: Abrir puerto.", Color.RED);
+            System.out.println(ex.getMessage());
+        }
+    }
+}
