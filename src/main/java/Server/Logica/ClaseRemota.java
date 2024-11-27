@@ -1,7 +1,6 @@
 package Server.Logica;
 
 import Interfaces.InterfazCliente;
-import Server.GUI.UIChat;
 import Server.GUI.UIConectados;
 import Server.GUI.UIIConsole;
 import Interfaces.InterfazRemota;
@@ -28,11 +27,10 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
         usuarios.add(user);
 
         UIConectados.agregarUsuario(user);
-        UIIConsole.addTextConsole("Conectado: " + user, Color.BLACK);
+        UIIConsole.addTextConsole(ipcliente + ": " + user + " (OK)" , Color.BLACK);
 
         // For para enviar a todos los usuarios conectados la lista de usuarios
         for (String userAddress : userAddress) {
-            List<String> usuarios = UIConectados.getUsuarios();
             try {
                 InterfazCliente objetoRemoto = (InterfazCliente) Naming.lookup("//" +
                         userAddress + ":1234/ChatRMI");

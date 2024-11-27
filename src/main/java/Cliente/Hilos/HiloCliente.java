@@ -4,8 +4,11 @@ import Cliente.GUI.UIChat;
 import Cliente.Logica.ClaseCliente;
 import Interfaces.InterfazCliente;
 import Cliente.GUI.UIMenu;
+import Interfaces.InterfazRemota;
 
 import java.awt.Color;
+import java.net.InetAddress;
+import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -20,16 +23,18 @@ public class HiloCliente extends Thread {
             InterfazCliente objetoRemoto = new ClaseCliente();
             java.rmi.Naming.rebind(url, objetoRemoto);
             System.out.println("Cliente RMI: OK");
-            UIMenu.setTextEstado("Conectado", Color.GREEN);
+            System.out.println("Cliente RMI: Esperando...");
             UIChat.activarChat();
 
-            /*String serverAddress = UIMenu.getDireccionUI();
+            // Esperar a que se agrege el usuario al host
+
+            String serverAddress = UIMenu.getDireccionUI();
             String localAddress = InetAddress.getLocalHost().getHostAddress();
 
-            //Registra la conexion en el servidor
+            //Añadir la conexion al servidor
             InterfazRemota claseRemota = (InterfazRemota) Naming.lookup("//" +
                     serverAddress + ":1234/ChatRMI");
-            claseRemota.addUsuario(UIMenu.getUsuarioUI(), localAddress);*/
+            claseRemota.addUsuario(UIMenu.getUsuarioUI(), localAddress);
 
 
         } catch (Exception ex) {

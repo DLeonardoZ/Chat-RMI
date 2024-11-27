@@ -85,7 +85,6 @@ public class UIMenu extends JPanel {
                 if (!puertoAbierto) {
                     try {
                         HiloCliente.abrirPuerto();
-                        // btnDesconectar();
                         puertoAbierto = true;
                     } catch (Exception ex) {
                         System.out.println("Error al abrir puerto (UIMenu -> btnConnect): " + ex.getMessage());
@@ -116,6 +115,7 @@ public class UIMenu extends JPanel {
         btnConnect.setEnabled(false);
         txtUser.setEditable(false);
         txtAddress.setEnabled(false);
+        btnDisconnect.setEnabled(true);
     } // UI
 
     public static void btnDesconectar() {
