@@ -100,6 +100,11 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
         new HiloRecibirMensaje(user, mensaje).start();
     }
 
+    public static void inicializarServidor(String user, String ipserver) {
+        userAddress.add(ipserver);
+        usuarios.add(user);
+    }
+
     public static List<String> getUserAddress() {
         return userAddress;
     }

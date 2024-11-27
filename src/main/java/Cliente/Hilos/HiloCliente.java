@@ -28,7 +28,7 @@ public class HiloCliente extends Thread {
             String serverAddress = UIMenu.getDireccionUI();
             String localAddress = InetAddress.getLocalHost().getHostAddress();
 
-            //// Esperar a que se agrege el usuario al host
+            // Esperar a que se agrege el usuario al host
             try {
                 InterfazRemota claseRemota = (InterfazRemota) Naming.lookup("//" +
                         serverAddress + ":1234/ChatRMI");
@@ -37,8 +37,6 @@ public class HiloCliente extends Thread {
             } catch (Exception ex) {
                 UIMenu.setTextEstado("El Servidor no responde", Color.RED);
             }
-
-
 
         } catch (Exception ex) {
             UIMenu.resetUIError();
@@ -68,6 +66,4 @@ public class HiloCliente extends Thread {
         }
         // Detiene servidor RMI
     }
-
-
 }

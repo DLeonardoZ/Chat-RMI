@@ -21,6 +21,11 @@ public class HiloServidor extends Thread {
 
             UIIConsole.addTextConsole("Servidor RMI: OK", Color.BLACK);
             UIIConsole.addTextConsole("Host: " + url, Color.BLACK);
+
+            // Añadimos al host como un usuario más
+            String serverAddress = java.net.InetAddress.getLocalHost().getHostAddress();
+            ClaseRemota.inicializarServidor("Servidor", serverAddress);
+
         } catch (Exception ex) {
             UIIConsole.addTextConsole("\nError: Arranque del HiloServer RMI.", Color.RED);
             System.out.println(ex.getMessage());
