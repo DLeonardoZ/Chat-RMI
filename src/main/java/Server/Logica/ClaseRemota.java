@@ -1,6 +1,7 @@
 package Server.Logica;
 
 import Interfaces.InterfazCliente;
+import Server.GUI.UIChat;
 import Server.GUI.UIConectados;
 import Server.GUI.UIIConsole;
 import Interfaces.InterfazRemota;
@@ -66,7 +67,7 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
     }
 
     public void recibirMensaje(String user, String mensaje) throws RemoteException {
-        UIIConsole.addTextConsole(user + ": " + mensaje, Color.BLACK);
+        UIChat.nuevoMensaje(user, mensaje);
 
         // El servidor replica el mensaje a todos los usuarios conectados
         for (String userAddress : userAddress) {
@@ -94,9 +95,5 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
         UIConectados.clearTabla();
         userAddress.clear();
         usuarios.clear();
-    }
-
-    public static List<String> getUserAddress() {
-        return userAddress;
     }
 }

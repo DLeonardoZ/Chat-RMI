@@ -36,4 +36,8 @@ public class UIChat extends JPanel {
             // Funcion desactivada
         });
     }
+
+    public static void nuevoMensaje(String user, String mensaje) {
+        txtChat.append(user + ": " + mensaje + "\n");
+    }
 }
