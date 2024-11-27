@@ -85,32 +85,48 @@ public class UIMenu extends JPanel {
                 if (!puertoAbierto) {
                     try {
                         HiloCliente.abrirPuerto();
-                        btnDesconectar();
+                        // btnDesconectar();
                         puertoAbierto = true;
                     } catch (Exception ex) {
                         System.out.println("Error al abrir puerto (UIMenu -> btnConnect): " + ex.getMessage());
                         return;
                     }
                 }
-                btnConnect.setEnabled(false);
-                txtUser.setEditable(false);
-                txtAddress.setEnabled(false);
+                btnConectar(); // Actualizar UI
                 new HiloCliente().start();
             }
         });
 
         btnDisconnect.addActionListener(e -> {
-            UIChat.desactivarChat();
-            txtAddress.setEnabled(true);
-            txtUser.setEnabled(true);
-            UIMenu.btnConnect.setEnabled(true);
-            UIMenu.txtUser.setEditable(true);
-            UIMenu.btnDisconnect.setEnabled(false);
-            txtUser.setText("");
+            btnDesconectar(); // Actualizar UI
+            HiloCliente.detener(); // Detener RMI del cliente
+
             new HiloDesconectar(getUsuarioUI(), getDireccionUI()).start();
             UIMenu.setTextEstado("Desconectado", Color.RED);
         });
     }
+
+    public static void resetUIError() {
+        btnConnect.setEnabled(true);
+        txtUser.setEditable(true);
+        txtUser.setText("");
+    } // UI
+
+    public static void btnConectar() {
+        btnConnect.setEnabled(false);
+        txtUser.setEditable(false);
+        txtAddress.setEnabled(false);
+    } // UI
+
+    public static void btnDesconectar() {
+        UIChat.desactivarChat();
+        txtAddress.setEnabled(true);
+        txtUser.setEnabled(true);
+        UIMenu.btnConnect.setEnabled(true);
+        UIMenu.txtUser.setEditable(true);
+        UIMenu.btnDisconnect.setEnabled(false);
+        txtUser.setText("");
+    } // UI
 
     public static String getUsuarioUI() {
         return txtUser.getText();
@@ -123,15 +139,5 @@ public class UIMenu extends JPanel {
     public static void setTextEstado(String text, Color color) {
         estado.setForeground(color);
         estado.setText(text);
-    }
-
-    public static void resetUIError() {
-        btnConnect.setEnabled(true);
-        txtUser.setEditable(true);
-        txtUser.setText("");
-    }
-
-    public static void btnDesconectar() {
-        btnDisconnect.setEnabled(true);
     }
 }

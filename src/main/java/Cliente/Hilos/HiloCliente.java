@@ -26,40 +26,21 @@ public class HiloCliente extends Thread {
             java.rmi.Naming.rebind(url, objetoRemoto);
             System.out.println("Cliente RMI: OK");
             UIMenu.setTextEstado("Conectado", Color.GREEN);
-            //UIMenu.btnDesconectar();
             UIChat.activarChat();
 
-            String serverAddress = UIMenu.getDireccionUI();
+            /*String serverAddress = UIMenu.getDireccionUI();
             String localAddress = InetAddress.getLocalHost().getHostAddress();
+
             //Registra la conexion en el servidor
             InterfazRemota claseRemota = (InterfazRemota) Naming.lookup("//" +
                     serverAddress + ":1234/ChatRMI");
-            claseRemota.addUsuario(UIMenu.getUsuarioUI(), localAddress);
+            claseRemota.addUsuario(UIMenu.getUsuarioUI(), localAddress);*/
 
 
         } catch (Exception ex) {
             UIMenu.resetUIError();
             UIMenu.setTextEstado(ex.getMessage(), Color.RED);
             System.out.println("(HiloCliente.java) Error: " + ex.getMessage());
-        }
-    }
-
-    public static void desconectarse() {
-        try {
-
-            String serverAddress = UIMenu.getDireccionUI();
-            String url = "//" + serverAddress + ":1234/ChatRMI";
-            InterfazRemota objetoRemoto = (InterfazRemota) Naming.lookup(url);
-            UIMenu.setTextEstado("Cerrando...", Color.ORANGE);
-            String ip = InetAddress.getLocalHost().getHostAddress();
-
-            // Ejecuta Metodos de InterfazRemota
-            //objetoRemoto.removeUsuario(getUser(), ip); // Elimina usuario de la lista
-            UIConectados.clearTabla();
-            UIMenu.setTextEstado("Desconectado", Color.RED);
-        } catch (Exception ex) {
-            UIMenu.setTextEstado("Error", Color.RED);
-            System.out.println(ex.getMessage());
         }
     }
 
@@ -72,4 +53,18 @@ public class HiloCliente extends Thread {
             System.out.println(ex.getMessage());
         }
     }
+
+    public static void detener() {
+        try {
+            String url = "//" + java.net.InetAddress.getLocalHost().getHostAddress() + ":1234/ChatRMI";
+            java.rmi.Naming.unbind(url);
+            UIIConsole.addTextConsole("Servidor RMI: OFF", Color.BLUE);
+        } catch (Exception ex) {
+            UIIConsole.addTextConsole("\nError: Detener el RMI.", Color.RED);
+            System.out.println(ex.getMessage());
+        }
+        // Detiene servidor RMI
+    }
+
+
 }

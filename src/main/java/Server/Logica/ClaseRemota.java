@@ -19,12 +19,12 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
     static List<String> usuarios;
 
     public ClaseRemota() throws RemoteException {
-        // Constructor
+        // Constructor y creación de listas
         userAddress = new ArrayList<>();
         usuarios = new ArrayList<>();
     }
-    public void addUsuario(String user, String address) throws RemoteException {
-        userAddress.add(address);
+    public void addUsuario(String user, String ipcliente) throws RemoteException {
+        userAddress.add(ipcliente);
         usuarios.add(user);
 
         UIConectados.agregarUsuario(user);
@@ -60,7 +60,6 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
     }
 
     public void enviarMensaje(String user, String mensaje) throws RemoteException {
-        UIChat.nuevoMensaje(user, mensaje);
 
         // El servidor replica el mensaje a todos los usuarios conectados
         for (String userAddress : userAddress) {

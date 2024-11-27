@@ -22,7 +22,7 @@ public class HiloServidor extends Thread {
             UIIConsole.addTextConsole("Servidor RMI: OK", Color.BLACK);
             UIIConsole.addTextConsole("Host: " + url, Color.BLACK);
         } catch (Exception ex) {
-            UIIConsole.addTextConsole("\nError: Arranque del RMI.", Color.RED);
+            UIIConsole.addTextConsole("\nError: Arranque del HiloServer RMI.", Color.RED);
             System.out.println(ex.getMessage());
         }
     }
