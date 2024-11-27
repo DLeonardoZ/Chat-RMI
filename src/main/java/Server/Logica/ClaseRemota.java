@@ -27,7 +27,7 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
         usuarios.add(user);
 
         UIConectados.agregarUsuario(user);
-        UIIConsole.addTextConsole("(Online)" + user + ":" + ipcliente, Color.BLACK);
+        UIIConsole.addTextConsole("(Online) " + user + ":" + ipcliente, Color.BLACK);
 
         // For para enviar a todos los usuarios conectados la lista de usuarios
         for (String userAddress : userAddress) {
@@ -48,7 +48,7 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
                 userAddress.remove(i);
                 usuarios.remove(i);
 
-                UIIConsole.addTextConsole("(Offline)" + user + ":" +ip, Color.BLACK);
+                UIIConsole.addTextConsole("(Offline) " + user + ":" +ip, Color.BLACK);
                 UIConectados.eliminarUsuario(user);
                 break;
             }
@@ -66,7 +66,7 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
         }
     }
 
-    public void recibirMensaje(String user, String mensaje) throws RemoteException {
+    public void recibirReplicarMensaje(String user, String mensaje) throws RemoteException {
         UIChat.nuevoMensaje(user, mensaje);
 
         // El servidor replica el mensaje a todos los usuarios conectados
@@ -79,10 +79,6 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
                 System.out.println(ex.getMessage());
             }
         }
-    }
-
-    public void enviarMensaje(String user, String mensaje) throws RemoteException {
-        //new HiloRecibirMensaje(user, mensaje).start();
     }
 
     public static void inicializarServidor(String user, String ipserver) {

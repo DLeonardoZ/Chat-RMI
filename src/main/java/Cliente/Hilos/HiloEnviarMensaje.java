@@ -21,7 +21,7 @@ public class HiloEnviarMensaje extends Thread {
             // Ejecutamos un metodo para recubir el mensaje en el servidor
             InterfazRemota objetoRemoto = (InterfazRemota) Naming.lookup("//" +
                     ipserver + ":1234/ChatRMI");
-            objetoRemoto.recibirMensaje(user, mensaje); // Recibe el servidor por parte del cliente
+            objetoRemoto.recibirReplicarMensaje(user, mensaje); // Recibe el servidor por parte del cliente
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
