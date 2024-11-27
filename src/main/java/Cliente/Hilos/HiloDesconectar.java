@@ -1,7 +1,7 @@
 package Cliente.Hilos;
 
+import Cliente.GUI.UIConectados;
 import Interfaces.InterfazRemota;
-import Server.GUI.UIConectados;
 
 public class HiloDesconectar extends Thread {
     private final String user;
