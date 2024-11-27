@@ -36,8 +36,7 @@ public class HiloCliente extends Thread {
                 claseRemota.addUsuario(UIMenu.getUsuarioUI(), localAddress);
                 UIMenu.setTextEstado("Conexión: OK", Color.GREEN);
             } catch (Exception ex) {
-                UIMenu.resetUIError();
-                UIMenu.setTextEstado("Conexión: ERROR (HiloCliente.java)", Color.RED);
+                UIMenu.setTextEstado("El Servidor no responde", Color.RED);
             }
 
 
