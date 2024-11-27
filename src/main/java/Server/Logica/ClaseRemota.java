@@ -75,7 +75,6 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
         // Recorremos la lista de usuarios conectados y eliminamos al usuario que se desconectó
         for (int i = 0; i < usuarios.size(); i++) {
             if (usuarios.get(i).equals(user)) {
-                System.out.println("encontrado");
                 UIConectados.eliminarUsuario(user);
                 usuarios.remove(i);
                 System.out.printf("Desconexión: %s\n", user);
@@ -101,6 +100,7 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
     }
 
     public static void inicializarServidor(String user, String ipserver) {
+        UIConectados.agregarUsuario(user);
         userAddress.add(ipserver);
         usuarios.add(user);
     }
