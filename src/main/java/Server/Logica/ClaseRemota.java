@@ -42,12 +42,25 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
     }
 
     public void removeUsuario(String user, String ip) throws RemoteException {
-        UIConectados.eliminarUsuario(user);
-        for (int i = 0; i < userAddress.size(); i++) {
+        UIConectados.eliminarUsuario(user); // Quitar usuario de la UI
+
+        for (int i = 0; i < userAddress.size(); i++) { // Quitar usuario de la lista de conectados
             if (userAddress.get(i).equals(ip)) {
-                UIIConsole.addTextConsole("Desconexión: " + user, Color.BLACK);
                 userAddress.remove(i);
+                usuarios.remove(i);
+                UIIConsole.addTextConsole("Desconexión: " + user, Color.BLACK);
                 break;
+            }
+        }
+
+        // For para quitar a ese usuario de la lista de conectados en los otros clientes
+        for (String userAddress : userAddress) {
+            try {
+                InterfazCliente objetoRemoto = (InterfazCliente) Naming.lookup("//" +
+                        userAddress + ":1234/ChatRMI");
+                objetoRemoto.removeUsuario(user);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
             }
         }
     }
@@ -69,30 +82,6 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
                 System.out.println(ex.getMessage());
             }
         }
-    }
-
-    public void desconectar(String user) throws RemoteException {
-        // Recorremos la lista de usuarios conectados y eliminamos al usuario que se desconectó
-        for (int i = 0; i < usuarios.size(); i++) {
-            if (usuarios.get(i).equals(user)) {
-                UIConectados.eliminarUsuario(user);
-                usuarios.remove(i);
-                System.out.printf("Desconexión: %s\n", user);
-                break;
-            }
-        }
-
-        // For para quitar a ese usuario de la lista de conectados en los otros clientes
-        for (String userAddress : userAddress) {
-            try {
-                InterfazCliente objetoRemoto = (InterfazCliente) Naming.lookup("//" +
-                        userAddress + ":1234/ChatRMI");
-                objetoRemoto.desconectar(user);
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
-
     }
 
     public void recibirMensaje(String user, String mensaje) throws RemoteException {

@@ -22,7 +22,7 @@ public class ClaseCliente extends UnicastRemoteObject implements InterfazCliente
         UIConectados.updateUsuarios(usuarios);
     }
 
-    public void desconectar(String user) throws RemoteException {
+    public void removeUsuario(String user) throws RemoteException {
         UIConectados.eliminarUsuario(user);
     }
 }

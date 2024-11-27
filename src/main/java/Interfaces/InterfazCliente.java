@@ -8,5 +8,5 @@ import java.util.List;
 public interface InterfazCliente extends Remote {
     void recibirMensaje(String user, String mensaje) throws RemoteException;
     void recibirUsuarios(List<String> usuarios) throws RemoteException;
-    void desconectar(String user) throws RemoteException;
+    void removeUsuario(String user) throws RemoteException;
 }
