@@ -26,15 +26,20 @@ public class HiloCliente extends Thread {
             System.out.println("Cliente RMI: Esperando...");
             UIChat.activarChat();
 
-            // Esperar a que se agrege el usuario al host
-
             String serverAddress = UIMenu.getDireccionUI();
             String localAddress = InetAddress.getLocalHost().getHostAddress();
 
-            //Añadir la conexion al servidor
-            InterfazRemota claseRemota = (InterfazRemota) Naming.lookup("//" +
-                    serverAddress + ":1234/ChatRMI");
-            claseRemota.addUsuario(UIMenu.getUsuarioUI(), localAddress);
+            //// Esperar a que se agrege el usuario al host
+            try {
+                InterfazRemota claseRemota = (InterfazRemota) Naming.lookup("//" +
+                        serverAddress + ":1234/ChatRMI");
+                claseRemota.addUsuario(UIMenu.getUsuarioUI(), localAddress);
+                UIMenu.setTextEstado("Conexión: OK", Color.GREEN);
+            } catch (Exception ex) {
+                UIMenu.resetUIError();
+                UIMenu.setTextEstado("Conexión: ERROR (HiloCliente.java)", Color.RED);
+            }
+
 
 
         } catch (Exception ex) {
