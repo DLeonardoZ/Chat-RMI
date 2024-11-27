@@ -14,7 +14,7 @@ public class HiloServidor extends Thread {
     @Override
     public void run() {
         try {
-            System.out.println("Servidor RMI: Iniciando...");
+            System.out.println("Servidor RMI: OK");
             String url = "//" + java.net.InetAddress.getLocalHost().getHostAddress() + ":1234/ChatRMI";
             InterfazRemota objetoRemoto = new ClaseRemota();
             java.rmi.Naming.rebind(url, objetoRemoto);
