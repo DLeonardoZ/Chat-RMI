@@ -18,7 +18,6 @@ public class HiloDesconectar extends Thread {
         try {
             InterfazRemota objetoRemoto = (InterfazRemota) java.rmi.Naming.lookup("//" +
                     ipserver + ":1234/ChatRMI");
-            System.out.println("Desconectando usuario: " + user);
             objetoRemoto.removeUsuario(user, iplocal);
             UIConectados.clearTabla();
         } catch (Exception ex) {

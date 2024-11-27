@@ -97,15 +97,15 @@ public class UIMenu extends JPanel {
         });
 
         btnDisconnect.addActionListener(e -> {
-            btnDesconectar(); // Actualizar UI
-            HiloCliente.detener(); // Detener RMI del cliente
-
             // Intentamos desconectar el usuario
             try {
                 String user = getUsuarioUI();
                 String ipserver = getDireccionUI();
                 String iplocal = java.net.InetAddress.getLocalHost().getHostAddress();
                 new HiloDesconectar(user, ipserver, iplocal).start();
+
+                btnDesconectar(); // Actualizar UI
+                HiloCliente.detener(); // Detener RMI del cliente
                 UIMenu.setTextEstado("Desconectado", Color.RED);
             } catch (Exception ex) {
                 System.out.println("Error al desconectar usuario (UIMenu -> btnDisconnect): " + ex.getMessage());
