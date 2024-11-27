@@ -1,6 +1,7 @@
 package Server.GUI;
 
 import Server.Hilos.HiloServidor;
+import Server.Logica.ClaseRemota;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -50,6 +51,7 @@ public class UITools extends JPanel {
         btnStop.addActionListener(e -> {
             btnStart.setEnabled(true);
             btnStop.setEnabled(false);
+            ClaseRemota.desconetarServidor();
             HiloServidor.detener(); // Hilo
         });
     }

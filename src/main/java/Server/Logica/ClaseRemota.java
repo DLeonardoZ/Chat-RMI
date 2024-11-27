@@ -48,8 +48,8 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
                 userAddress.remove(i);
                 usuarios.remove(i);
 
-                UIConectados.eliminarUsuario(user); // Quitar usuario de la UI
                 UIIConsole.addTextConsole("Desconexión: " + user, Color.BLACK);
+                UIConectados.eliminarUsuario(user);
                 break;
             }
         }
@@ -93,6 +93,12 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
         UIConectados.agregarUsuario(user);
         userAddress.add(ipserver);
         usuarios.add(user);
+    }
+
+    public static void desconetarServidor() {
+        UIConectados.clearTabla();
+        userAddress.clear();
+        usuarios.clear();
     }
 
     public static List<String> getUserAddress() {
