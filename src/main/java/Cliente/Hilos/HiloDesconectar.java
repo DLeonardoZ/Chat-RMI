@@ -1,6 +1,7 @@
 package Cliente.Hilos;
 
 import Interfaces.InterfazRemota;
+import Server.GUI.UIConectados;
 
 public class HiloDesconectar extends Thread {
     private final String user;
@@ -18,7 +19,7 @@ public class HiloDesconectar extends Thread {
             InterfazRemota objetoRemoto = (InterfazRemota) java.rmi.Naming.lookup("//" +
                     ipserver + ":1234/ChatRMI");
             objetoRemoto.removeUsuario(user, iplocal);
-
+            UIConectados.clearTabla();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
