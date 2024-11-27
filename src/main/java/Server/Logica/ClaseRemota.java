@@ -83,6 +83,7 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
 
     public static void inicializarServidor(String user, String ipserver) {
         UIConectados.agregarUsuario(user);
+        UIChat.activarChat();
         userAddress.add(ipserver);
         usuarios.add(user);
     }
@@ -91,5 +92,9 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
         UIConectados.clearTabla();
         userAddress.clear();
         usuarios.clear();
+    }
+
+    public static List<String> getUserAddress() {
+        return userAddress;
     }
 }
