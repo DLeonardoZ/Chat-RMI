@@ -23,7 +23,6 @@ public class HiloCliente extends Thread {
             InterfazCliente objetoRemoto = new ClaseCliente();
             java.rmi.Naming.rebind(url, objetoRemoto);
             System.out.println("Cliente RMI: OK");
-            System.out.println("Cliente RMI: Esperando...");
             UIChat.activarChat();
 
             String serverAddress = UIMenu.getDireccionUI();

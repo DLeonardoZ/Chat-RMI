@@ -27,9 +27,7 @@ public class UIConectados extends JPanel {
         usuarios.setRowHeight(40);
         usuarios.setDefaultRenderer(Object.class, centerRender);
         usuarios.setSize(200, 600);
-
         add(usuarios);
-        agregarUsuario("Servidor");
     }
 
     public static void agregarUsuario(String usuario) {
