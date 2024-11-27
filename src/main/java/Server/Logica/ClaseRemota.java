@@ -42,12 +42,13 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
     }
 
     public void removeUsuario(String user, String ip) throws RemoteException {
-        UIConectados.eliminarUsuario(user); // Quitar usuario de la UI
 
         for (int i = 0; i < userAddress.size(); i++) { // Quitar usuario de la lista de conectados
             if (userAddress.get(i).equals(ip)) {
                 userAddress.remove(i);
                 usuarios.remove(i);
+
+                UIConectados.eliminarUsuario(user); // Quitar usuario de la UI
                 UIIConsole.addTextConsole("Desconexión: " + user, Color.BLACK);
                 break;
             }
