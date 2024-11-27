@@ -4,7 +4,6 @@ import Interfaces.InterfazCliente;
 import Server.GUI.UIConectados;
 import Server.GUI.UIIConsole;
 import Interfaces.InterfazRemota;
-import Cliente.Hilos.HiloRecibirMensaje;
 
 import java.awt.Color;
 import java.rmi.Naming;
@@ -66,12 +65,8 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
         }
     }
 
-    @Override
-    public List<String> getUsuarios() throws RemoteException {
-        return List.of();
-    }
-
-    public void enviarMensaje(String user, String mensaje) throws RemoteException {
+    public void recibirMensaje(String user, String mensaje) throws RemoteException {
+        UIIConsole.addTextConsole(user + ": " + mensaje, Color.BLACK);
 
         // El servidor replica el mensaje a todos los usuarios conectados
         for (String userAddress : userAddress) {
@@ -85,8 +80,8 @@ public class ClaseRemota extends UnicastRemoteObject implements InterfazRemota {
         }
     }
 
-    public void recibirMensaje(String user, String mensaje) throws RemoteException {
-        new HiloRecibirMensaje(user, mensaje).start();
+    public void enviarMensaje(String user, String mensaje) throws RemoteException {
+        //new HiloRecibirMensaje(user, mensaje).start();
     }
 
     public static void inicializarServidor(String user, String ipserver) {

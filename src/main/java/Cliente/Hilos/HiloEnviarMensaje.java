@@ -1,4 +1,4 @@
-package Server.Hilos;
+package Cliente.Hilos;
 
 import Interfaces.InterfazRemota;
 
@@ -18,10 +18,10 @@ public class HiloEnviarMensaje extends Thread {
     @Override
     public void run() {
         try {
-            // Ejecuta Metodos de InterfazRemota
+            // Ejecutamos un metodo para recubir el mensaje en el servidor
             InterfazRemota objetoRemoto = (InterfazRemota) Naming.lookup("//" +
                     ipserver + ":1234/ChatRMI");
-            objetoRemoto.enviarMensaje(user, mensaje); // Recibe el servidor por parte del cliente
+            objetoRemoto.recibirMensaje(user, mensaje); // Recibe el servidor por parte del cliente
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

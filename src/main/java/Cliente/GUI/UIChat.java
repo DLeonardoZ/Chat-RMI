@@ -1,9 +1,12 @@
 package Cliente.GUI;
 
-import Server.Hilos.HiloEnviarMensaje;
+import Cliente.Hilos.HiloEnviarMensaje;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import java.awt.Color;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class UIChat extends JPanel {
     static JTextArea txtChat;
@@ -34,8 +37,9 @@ public class UIChat extends JPanel {
         txtMensaje.addActionListener(e -> {
             String mensaje = txtMensaje.getText();
             String user = UIMenu.getUsuarioUI();
+            String ipServer = UIMenu.getDireccionUI();
 
-            new HiloEnviarMensaje(user, mensaje, UIMenu.getDireccionUI()).start();
+            new HiloEnviarMensaje(user, mensaje, ipServer).start();
             txtMensaje.setText("");
         });
     }
