@@ -4,13 +4,8 @@ import Cliente.GUI.UIChat;
 import Cliente.Logica.ClaseCliente;
 import Interfaces.InterfazCliente;
 import Cliente.GUI.UIMenu;
-import Server.GUI.UIConectados;
-import Interfaces.InterfazRemota;
-import Server.GUI.UIIConsole;
 
 import java.awt.Color;
-import java.net.InetAddress;
-import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -49,7 +44,7 @@ public class HiloCliente extends Thread {
             Registry registry = LocateRegistry.createRegistry(1234);
             System.out.println(registry);
         } catch (Exception ex) {
-            UIIConsole.addTextConsole("\nError: Abrir puerto.", Color.RED);
+            UIMenu.setTextEstado("\nError: Abrir puerto.", Color.RED);
             System.out.println(ex.getMessage());
         }
     }
@@ -58,9 +53,9 @@ public class HiloCliente extends Thread {
         try {
             String url = "//" + java.net.InetAddress.getLocalHost().getHostAddress() + ":1234/ChatRMI";
             java.rmi.Naming.unbind(url);
-            UIIConsole.addTextConsole("Servidor RMI: OFF", Color.BLUE);
+            UIMenu.setTextEstado("Servidor RMI: OFF", Color.BLUE);
         } catch (Exception ex) {
-            UIIConsole.addTextConsole("\nError: Detener el RMI.", Color.RED);
+            UIMenu.setTextEstado("\nError: Detener el RMI.", Color.RED);
             System.out.println(ex.getMessage());
         }
         // Detiene servidor RMI
