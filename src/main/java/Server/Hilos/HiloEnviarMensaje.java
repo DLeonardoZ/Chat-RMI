@@ -8,21 +8,22 @@ import java.util.List;
 public class HiloEnviarMensaje extends Thread {
     private final String user;
     private final String mensaje;
-    private final List<String> ipAddresses;
+    private final List<String> userAddress;
 
-    public HiloEnviarMensaje(String user, String mensaje, List<String> ipAddresses) {
+    public HiloEnviarMensaje(String user, String mensaje, List<String> userAddress) {
         this.user = user;
         this.mensaje = mensaje;
-        this.ipAddresses = ipAddresses;
+        this.userAddress = userAddress;
     }
 
     @Override
     public void run() {
         try {
             // Ejecutamos un metodo para enviar el mensaje a todos los clientes
-            for (String ipuser : ipAddresses) {
+            for (String userAddress : userAddress) {
+                System.out.println("Enviando mensaje a: " + user);
                 InterfazCliente objetoRemoto = (InterfazCliente) Naming.lookup("//" +
-                        ipuser + ":1234/ChatRMI");
+                        userAddress + ":1234/ChatRMI");
                 objetoRemoto.recibirMensaje(user, mensaje); // Recibe el cliente
             }
 
