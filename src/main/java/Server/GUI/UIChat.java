@@ -21,7 +21,7 @@ public class UIChat extends JPanel {
         setLayout(null);
 
         txtChat = new JTextArea();
-        txtChat.setEditable(true);
+        txtChat.setEditable(false);
         txtChat.setSize(400,550);
         txtChat.setFont(txtChat.getFont().deriveFont(16.0f));
 
@@ -41,6 +41,7 @@ public class UIChat extends JPanel {
             String mensaje = txtMensaje.getText();
             ipAddresses = ClaseRemota.getUserAddress();
 
+            nuevoMensaje("Servidor", mensaje);
             new HiloEnviarMensaje("Servidor", mensaje, ipAddresses).start();
             txtMensaje.setText("");
         });
